@@ -1,6 +1,6 @@
 defmodule Cloister.Node do
   @moduledoc """
-  The abstraction level allowing milticalls and multicasts across the whole cluster.
+  The abstraction level allowing multicalls and multicasts across the whole cluster.
   """
 
   use GenServer
@@ -22,7 +22,7 @@ defmodule Cloister.Node do
 
   @spec multicast(nodes :: [node()], name :: GenServer.name(), request :: term()) :: :abcast
   @doc """
-  Casts the request to all the nodes connected to this node
+  Casts the request to all the nodes connected to this node.
   """
   def multicast(nodes \\ [node() | Node.list()], name, request),
     do: :rpc.eval_everywhere(nodes, GenServer, :cast, [name, request])
